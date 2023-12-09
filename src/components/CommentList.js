@@ -58,9 +58,14 @@ export default function CommentList() {
   }
 
   function editCommentHandler(commentId, editedComment){
-    const updatedComments= editComment(comments, commentId, editedComment);
-    localStorage.setItem('comments',JSON.stringify(updatedComments))
-    setComments(updatedComments);
+    if(editedComment)
+    {
+      const updatedComments= editComment(comments, commentId, editedComment);
+      localStorage.setItem('comments',JSON.stringify(updatedComments))
+      setComments(updatedComments);
+    }
+    else
+    alert('Edited Text can not be empty')
   }
 
   function onDeleteHandler(commentId){
