@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import TextCard from './TextCard';
+import EditCard from './EditCard';
 
 const Container = styled.div`
   width: 80%;
@@ -9,12 +10,14 @@ const Container = styled.div`
 `;
 
 const CardContainer = styled.div`
+  
   display: flex;
   justify-content: center;
   margin: 16px 0;
 `;
 
 const Card = styled.div`
+  position: relative;
   border: 1px solid #ccc;
   background-color: #efefef;
   border-radius: 8px;
@@ -46,6 +49,7 @@ const DateText = styled.div`
 `;
 
 const CommentText = styled.p`
+  overflow-wrap: break-word;
   padding-bottom: 16px;
   margin: 0;
 `;
@@ -65,22 +69,31 @@ const Button = styled.button`
 `;
 
 const IconButton = styled.button`
+  background-color: #808080;
+  padding: 8px;
+  border-radius: 50%;
+  color: #fff;
   align-self: flex-end;
-  background-color: transparent;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: absolute;
+  right: -13px;
+  top: 50%;
+  font-size: large;
+  transform: translateY(-50%);
 `;
 
-const DeleteIcon = styled(RiDeleteBin6Line)`
-  
+const DeleteIcon = styled(RiDeleteBin6Line)` 
 `;
 
 const CommentCard = ({ comment, name, replyText, 
-  setName, setReplyText,addReply, onEdit, onDeleteHandler }) => {
+  setName, setReplyText, addReply, onEdit, deleteComment }) => {
+
   const parsedDate = new Date(comment.dateAdded).toDateString().split(' ').slice(1).join(' ')
   const [showReplyBox, setShowReplyBox] = useState(false);
+  const [showEditBox, setShowEditBox] = useState(false);
 
   return (
     <div>
@@ -92,10 +105,10 @@ const CommentCard = ({ comment, name, replyText,
         </Header>
         <CommentText>{comment.comment}</CommentText>
         <ButtonContainer>
-          {comment.children && <Button onClick={()=>setShowReplyBox(true)}>Reply</Button>}
-          <Button onClick={onEdit}>Edit</Button>
+          {comment.isParent && <Button onClick={()=>setShowReplyBox(!showReplyBox)}>Reply</Button>}
+          <Button onClick={()=>setShowEditBox(!showEditBox)}>Edit</Button>
         </ButtonContainer>
-        <IconButton onClick={()=>onDeleteHandler(comment.id)}>
+        <IconButton onClick={()=>deleteComment(comment.id)}>
             <DeleteIcon />
         </IconButton>
       </Card>
@@ -113,12 +126,23 @@ const CommentCard = ({ comment, name, replyText,
     addComment={()=>{addReply(); setName(''); setReplyText(''); setShowReplyBox(false);}}
     />
     </Container>}
+    {showEditBox && 
+    <Container>
+      <EditCard
+      name={comment.name}
+      comment={comment}
+      editComment={onEdit}
+      setShowEditBox={setShowEditBox}
+      />
+    </Container>
+    }
     {comment.children && comment.children.length > 0 &&
     comment.children.map(comment =>
     <Container key={comment.id}>
     <CommentCard
     comment={comment}
-    onDeleteHandler={onDeleteHandler}
+    deleteComment={deleteComment}
+    onEdit={onEdit}
     />
     </Container>
     )

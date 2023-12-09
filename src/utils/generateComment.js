@@ -1,13 +1,13 @@
 import generateUuid from './generateUuid';
 
-export default function generateComment(commentText, name, addChildren){
+export default function generateComment(commentText, name, isParent){
     const comment={
         id: generateUuid(),
-        dateAdded: new Date().toISOString(),
+        dateAdded: new Date().getTime(),
         comment: commentText,
-        name: name
+        name: name,
+        isParent: isParent,
+        children:[]
       }
-    if(addChildren)
-    comment.children = [] 
     return comment;
 }

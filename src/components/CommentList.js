@@ -3,6 +3,9 @@ import TextCard from './TextCard';
 import CommentCard from './CommentCard';
 import styled from 'styled-components';
 import generateComment from '../utils/generateComment';
+import editComment from '../utils/editComment';
+import deleteComment from '../utils/deleteComment';
+import insertReply from '../utils/insertReply';
 
 const Container = styled.div`
   width: 80%;
@@ -17,21 +20,18 @@ export default function CommentList() {
   const [replierName, setReplierName] = useState('')
 
   useEffect(()=>{
-    localStorage.setItem('comments',JSON.stringify(comments))
-  }, [comments])
-
-  useEffect(()=>{
     const data = localStorage.getItem('comments')
     if(data){
       setComments(JSON.parse(data))
      }
     },[])
 
-  const insertCommentHandler=()=>{
+  function insertCommentHandler(){
     if(name && inputComment){
       let commentsCopy= [...comments]
       const comment = generateComment(inputComment, name, true)
       commentsCopy.push(comment)
+      localStorage.setItem('comments',JSON.stringify(commentsCopy))
       setComments(commentsCopy)
       setComment('')
       setName('')
@@ -43,38 +43,31 @@ export default function CommentList() {
   function addReplyHandler(commentId){
     if(replierName && replyText){
     const comment=generateComment(replyText, replierName, false)
-    insertReply(commentId, comment)
-  }
+    insertReplyHandler(commentId, comment)
+    }
     else{
       alert('Name or Reply cannot be blank')
     }
   } 
 
-  function insertReply(commentId, newComment){
-    let commentsCopy = [...comments]
-    for (let i = 0; i < commentsCopy.length; i++) {
-      let comment = commentsCopy[i];
-      if (comment.id === commentId) {
-        comment.children.unshift(newComment);
-      }
-    }
-    setComments(commentsCopy);
+  function insertReplyHandler(commentId, newComment){
+    const updatedComments= insertReply(comments, commentId, newComment)
+    localStorage.setItem('comments',JSON.stringify(updatedComments))
+    setComments(updatedComments);
   }
 
-  function deleteComment(commentId){
-    const stack = [...comments];
-
-  while (stack.length > 0) {
-    const currentComment = stack.pop();
-
-    currentComment.children = currentComment.children
-      ? currentComment.children.filter(comment => comment.id !== commentId)
-      : [];
-
-    stack.push(...currentComment.children);
-    }
-    const updatedComments = comments.filter(comment => comment.id !== commentId);
+  function editCommentHandler(commentId, editedComment){
+    const updatedComments= editComment(comments, commentId, editedComment);
+    localStorage.setItem('comments',JSON.stringify(updatedComments))
     setComments(updatedComments);
+  }
+
+  function onDeleteHandler(commentId){
+    if (window.confirm("Are you sure you want to delete?")){
+        const updatedComments= deleteComment(comments, commentId)
+        localStorage.setItem('comments',JSON.stringify(updatedComments))
+        setComments(updatedComments);
+    }
   }
 
   return (
@@ -98,7 +91,8 @@ export default function CommentList() {
         setName={setReplierName}
         setReplyText={setReplyText}
         addReply={()=>addReplyHandler(comment.id)} 
-        onDeleteHandler={deleteComment}/>
+        deleteComment={onDeleteHandler}
+        onEdit={editCommentHandler}/>
         )}
         </Container>
     </div>
