@@ -5,7 +5,7 @@
 
 ## Important Points
 
-The web application allows user to **add**, **edit**,**sort** and **delete** **comments** and **replies**. The application supports the following **features**:
+The web application allows user to **add**, **edit**,**sort** and **delete** **comments** and **replies**. The application fulfils the following criterias:
 
 1. **Validation:**
    - Users are required to enter both a name and comment/reply text when adding a comment or a reply.
