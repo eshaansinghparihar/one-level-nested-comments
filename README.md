@@ -1,70 +1,80 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# One Level Nested Comments
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+## Important Points
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The web application allows user to **add**, **edit**, and **delete** **comments** and **replies**. The application supports the following **features**:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Validation:**
+   - Users are required to enter both a name and comment/reply text when adding a comment or a reply.
+   - The input is validated to ensure that both the name and comment text are provided.
+   - Only if both of these are present, the comment/reply is added, otherwise an error is thrown.
 
-### `yarn test`
+2. **Date and Time:**
+   - Each comment or reply is automatically saved with the current date and time.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Sorting:**
+   - Both comments and replies are sortable based on date and time, as indicated in the design.
 
-### `yarn build`
+4. **Edit Functionality:**
+   - When a user clicks on the "Edit" button, they are allowed to edit only the comment text. The name remains uneditable.
+   - A validation check has been implemented so that an edited comment or reply cannot be empty.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. **Delete Button Placement:**
+   - The "Delete" button is strategically placed on the border of each comment or reply, following the design specifications.
+   - A confirmation popup is also implemented to make sure the user wishes to delete that item.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+6. **Data Persistence:**
+   - The application ensures data persistence using the use of local storage. This means that even if the user refreshes the page, the data will not be lost.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+7. **Testing:**
+   - The application has undergone thorough testing to ensure proper functionality.
+   - Testing includes validation checks, sorting tests, edit functionality tests, delete button functionality tests, and data persistence tests.
 
-### `yarn eject`
+8. **Brownie Points:**
+    - A confirmation popup is implemented to make sure the user wishes to delete that item.
+    - Reply and Edit buttons can be toggled by clicking on the respective button.
+    - A validation check has been implemented so that an edited comment or reply cannot be empty.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Screenshot
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![App Screenshot](https://github.com/eshaansinghparihar/one-level-nested-comments/assets/52907892/a4078590-e5b7-436e-98bd-12925b46f9d1)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This web application has been deployed and hosted on **Netlify** having domain name https://one-level-nested-comments.netlify.app/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Run Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Getting Started
 
-### Analyzing the Bundle Size
+To run the application locally, follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Clone the repository to your local machine.
 
-### Making a Progressive Web App
+   ```bash
+   git clone https://github.com/eshaansinghparihar/one-level-nested-comments.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. Install the packages on your local machine.
 
-### Advanced Configuration
+    ```bash
+    yarn install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. Run the project.
 
-### Deployment
+    ```bash
+    yarn run start 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. Open chrome browser and visit http://localhost:3000/ to use the project locally.
+## Usage
 
-### `yarn build` fails to minify
+- Add a comment or reply by filling in the required fields and clicking the "POST" button.
+- Edit a comment by clicking the "Edit" button and modifying the comment text.
+- Delete a comment or reply by clicking the "Delete" button on the respective item.
+- Sort the comments based on date and time by clicking on the "Sort By: Date and Time" button.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
