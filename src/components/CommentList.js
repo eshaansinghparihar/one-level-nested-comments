@@ -6,6 +6,7 @@ import generateComment from '../utils/generateComment';
 import editComment from '../utils/editComment';
 import deleteComment from '../utils/deleteComment';
 import insertReply from '../utils/insertReply';
+import CommentSortButton from './SortButton';
 
 const Container = styled.div`
   width: 80%;
@@ -82,6 +83,9 @@ export default function CommentList() {
         setName={setName}
         setComment={setComment}
         addComment={insertCommentHandler}/>
+        {comments.length > 1 && <CommentSortButton
+        comments={comments}
+        setComments={setComments}/>}
         {comments.length > 0 && comments.map(comment =>
         <CommentCard 
         key={comment.id}
