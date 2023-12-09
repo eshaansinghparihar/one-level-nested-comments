@@ -58,7 +58,13 @@ export default function EditCard({name, comment, editComment, setShowEditBox}) {
         onChange={(e) => setEditedText(e.target.value)}
       />
       <br></br>
-      <Button onClick={()=>{editComment(comment.id, editedText); setShowEditBox(false)}}>Edit</Button>
+      <Button onClick={()=>{if(editedText){
+          setShowEditBox(false)}
+          editComment(comment.id, editedText);  
+        }
+        }
+        >
+        Edit</Button>
       </CardContainer>
     </div>
   )

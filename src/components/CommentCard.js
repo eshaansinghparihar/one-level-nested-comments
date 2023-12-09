@@ -123,7 +123,14 @@ const CommentCard = ({ comment, name, replyText,
     comment={replyText}
     setName={setName}
     setComment={setReplyText}
-    addComment={()=>{addReply(); setName(''); setReplyText(''); setShowReplyBox(false);}}
+    addComment={()=>{
+      addReply(); 
+      if(name && replyText){
+        setShowReplyBox(false);
+        setName(''); 
+        setReplyText(''); 
+      }
+      }}
     />
     </Container>}
     {showEditBox && 
